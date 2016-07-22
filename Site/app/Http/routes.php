@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,11 +11,39 @@
 |
 */
 
-Route::get('/', function () {
-    echo "HI";
-});
 
 
 //Route::get('hi', function () {
 //   echo "WELCOME";
 //});
+
+
+
+
+Route::auth();
+
+
+Route::group(['middleware' => 'admin'], function () {
+
+    Route::get('test', function () {
+        echo '123';
+    });
+
+
+
+});
+
+Route::group(['middleware' => 'auth'], function () {
+//    Route::get('test', function () {
+//        echo '123';
+//    });
+
+    Route::get('/', function () {
+        return view('welcome');
+    });
+    Route::get('/home', 'HomeController@index');
+
+});
+
+
+
