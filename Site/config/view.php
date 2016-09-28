@@ -29,5 +29,5 @@ return [
     */
 
     'compiled' => realpath(storage_path('framework/views')),
-
+    'pagination' => 'pagination.custom'
 ];

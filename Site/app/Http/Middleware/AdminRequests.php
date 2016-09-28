@@ -16,11 +16,14 @@ class AdminRequests
 
     public function handle($request, Closure $next, $guard = null)
     {
-        var_dump(Auth::user()->isAdmin);
+        if (!Auth::guard()->guest()) {
 
-        if (!Auth::guest() && !Auth::user()->isAdmin) {
-            return redirect()->guest('login');
+            if (Auth::user()->isAdmin) {
+                return $next($request);
+            } else {
+                return redirect('home');
+            }
         }
-        return $next($request);
+        return redirect()->guest('login');
     }
 }
